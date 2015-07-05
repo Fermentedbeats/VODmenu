@@ -13,9 +13,12 @@
 			// this.runTime = runTime;
 		//}
 
-		function Media(boxCover) {
-			this.boxCover = boxCover;
-		};
+
+// constructor for each movie
+function Media(name, boxCover) {
+	this.name = name;
+	this.boxCover = boxCover;
+};
 
 		// favorite, watchlist & history default as false
 
@@ -23,43 +26,48 @@
 		// Media.prototype.watchList = false;
 		// Media.prototype.history = false;
 
-var avengers = new Media('assets/boxcovers/avengers.jpg');
-var blade_runner = new Media('assets/boxcovers/blade_runner.jpg');
-var brave = new Media('assets/boxcovers/brave.jpg');
-var catching_fire = new Media('assets/boxcovers/catching_fire.jpg');
-var django = new Media('assets/boxcovers/django.jpg');
-var finding_nemo = new Media('assets/boxcovers/finding_nemo.jpg');
-var hobbit = new Media('assets/boxcovers/hobbit.jpg');
-var hotel_transylvania = new Media('assets/boxcovers/hotel_transylvania.jpg');
-var hugo = new Media('assets/boxcovers/hugo.jpg');
-var iron_man = new Media('assets/boxcovers/iron_man.jpg');
-var les_mes =  new Media('assets/boxcovers/les_mes.jpg');
 
-var table = [avengers,0,0,0,0, blade_runner,0,0,0,0, brave,0,0,0,0, catching_fire,0,0,0,0, django,0,0,0,0, finding_nemo,0,0,0,0, hobbit,0,0,0,0, hotel_transylvania,0,0,0,0, hugo,0,0,0,0, iron_man,0,0,0,0, les_mes];
-			
+// create movie objects
+var avengers = new Media("avengers",'assets/boxcovers/avengers.jpg');
+var blade_runner = new Media("blade_runner",'assets/boxcovers/blade_runner.jpg');
+var brave = new Media("brave",'assets/boxcovers/brave.jpg');
+var catching_fire = new Media("catching_fire",'assets/boxcovers/catching_fire.jpg');
+var django = new Media("django",'assets/boxcovers/django.jpg');
+var finding_nemo = new Media("finding_nemo",'assets/boxcovers/finding_nemo.jpg');
+var hobbit = new Media("hobbit",'assets/boxcovers/hobbit.jpg');
+var hotel_transylvania = new Media("hotel_transylvania",'assets/boxcovers/hotel_transylvania.jpg');
+var hugo = new Media("hugo",'assets/boxcovers/hugo.jpg');
+var iron_man = new Media("iron_man",'assets/boxcovers/iron_man.jpg');
+var les_mis =  new Media("les_mis",'assets/boxcovers/les_mis.jpg');
 
-			var camera, scene, renderer;
-			var controls;
 
-			var objects = [];
-			var targets = { table: []};
+// put movie objects into table
+var table = [avengers,blade_runner,brave,catching_fire,django,finding_nemo,hobbit,hotel_transylvania,hugo,iron_man,les_mis];
 
-			init();
-			animate();
 
-			function init() {
 
-				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
-				camera.position.z = 3000;
+// INTRO ANIMATION
+var camera, scene, renderer;
+var controls;
 
-				scene = new THREE.Scene();
+var objects = [];
+var targets = { table: []};
 
-				// table
+init();
+animate();
+
+function init() {
+
+	camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+	camera.position.z = 3000;
+
+	scene = new THREE.Scene();
 
 				for (var i = 0; i < table.length; i++) {
 
 					var element = document.createElement( 'div' );
 					element.className = 'element';
+					element.id = table[i].name;
 					//element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 					var image = document.createElement('img');
 					image.src = table[i].boxCover;
@@ -76,8 +84,15 @@ var table = [avengers,0,0,0,0, blade_runner,0,0,0,0, brave,0,0,0,0, catching_fir
 					//
 
 					var object = new THREE.Object3D();
-					object.position.x = ( table[ i + 3 ] * 140 ) - 1330;
-					object.position.y = - ( table[ i + 4 ] * 180 ) + 990;
+					// object.position.x = ( table[ i + 3 ] * 140 ) - 1330;
+					// object.position.y = - ( table[ i + 4 ] * 180 ) + 990;
+
+
+var home = document.getElementsByClassName("selections");
+home[0].appendChild(element);
+console.log(element);
+
+
 
 					targets.table.push( object );
 
@@ -98,15 +113,15 @@ var table = [avengers,0,0,0,0, blade_runner,0,0,0,0, brave,0,0,0,0, catching_fir
 				// controls.maxDistance = 6000;
 				// controls.addEventListener( 'change', render );
 
-				var button = document.getElementById( 'table' );
-				button.addEventListener( 'click', function ( event ) {
+				// var button = document.getElementById( 'table' );
+				// button.addEventListener( 'click', function ( event ) {
 
-					transform( targets.table, 2000 );
+				// 	transform( targets.table, 2000 );
 
-				}, false );
+				// }, false );
 
 
-				transform( targets.table, 2000 );
+transform( targets.table, 2000 );
 
 				//
 
@@ -124,21 +139,21 @@ var table = [avengers,0,0,0,0, blade_runner,0,0,0,0, brave,0,0,0,0, catching_fir
 					var target = targets[ i ];
 
 					new TWEEN.Tween( object.position )
-						.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
-						.easing( TWEEN.Easing.Exponential.InOut )
-						.start();
+					.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
 
 					new TWEEN.Tween( object.rotation )
-						.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
-						.easing( TWEEN.Easing.Exponential.InOut )
-						.start();
+					.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
 
 				}
 
 				new TWEEN.Tween( this )
-					.to( {}, duration * 2 )
-					.onUpdate( render )
-					.start();
+				.to( {}, duration * 2 )
+				.onUpdate( render )
+				.start();
 
 			}
 
@@ -159,7 +174,7 @@ var table = [avengers,0,0,0,0, blade_runner,0,0,0,0, brave,0,0,0,0, catching_fir
 
 				TWEEN.update();
 
-				controls.update();
+				//controls.update();
 
 			}
 
@@ -168,4 +183,14 @@ var table = [avengers,0,0,0,0, blade_runner,0,0,0,0, brave,0,0,0,0, catching_fir
 				renderer.render( scene, camera );
 
 			}
-			
+
+// BUILDING MENUS
+
+// var elements = document.getElementsByClassName("element");
+// console.log(elements);
+
+// for (var j = 0; j < elements.length; j++) {
+// 	document.getElementsByClassName("selections")[0].appendChild(elements[j]);
+// }
+
+
