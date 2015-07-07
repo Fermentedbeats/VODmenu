@@ -59,7 +59,7 @@ new Media('../assets/boxcovers/wreck_it_ralph.jpg', "Wreck-It Ralph", "2012", "F
 
 function displayByGenre() {
     // sort movie results chronologically w/ newest first
-  table.sort(sortByYear);
+    table.sort(sortByYear);
     // start fresh if user switches to this menu
     clearMenu();
     // generate an array of available genres
@@ -76,13 +76,13 @@ function displayByGenre() {
         // populate boxCovers beneath each genre title div
         for (var k = 0; k < table.length; k++) {
             if (table[k].genre === genresList[j] || 
-               ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
+             ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
                 populateMovieImgs(k, movieImgDiv);
-            }
-
         }
+
     }
-    generateMovieSelector(); 
+}
+generateMovieSelector(); 
 }
 //displayByGenre();
 
@@ -145,9 +145,9 @@ function displayHistory() {
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
-     } 
-     generateMovieSelector();    
-}
+        } 
+        generateMovieSelector();    
+    }
 //displayHistory(); 
 
 
@@ -165,11 +165,11 @@ function displayFavorites() {
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
-    }  
-    generateMovieSelector();   
-}
+        }  
+        generateMovieSelector();   
+    }
 
-function displayWatchList() {
+    function displayWatchList() {
     // start fresh when user switches to this menu
     clearMenu();
     var watchList = ["Watch List"];
@@ -183,9 +183,9 @@ function displayWatchList() {
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
-    } 
-    generateMovieSelector(); 
-}
+        } 
+        generateMovieSelector(); 
+    }
 // ********************** MENU DISPLAY HELPERS **********************
 
 
@@ -213,10 +213,10 @@ function clearMenu(){
 }
 
 function sortByYear(a, b){
-      if (a.year < b.year) return 1;
-      if (a.year > b.year) return -1;
-      return 0;
-  }
+  if (a.year < b.year) return 1;
+  if (a.year > b.year) return -1;
+  return 0;
+}
 
 // ********************** MOVIE DETAILS DISPLAY **********************
 
@@ -231,15 +231,33 @@ function displayDetails() {
     // clone boxCover to details div
     selectedMovie.clone().appendTo(".detailsImg");
     //
+
     var text = document.getElementsByClassName('detailsText')[0];
-    text.innerHTML = movieObj.plot;
+
+    text.innerHTML = "Title: " + movieObj.title + "<br>" + movieObj.year + "<br>Genre: " + movieObj.genre + "<br>Content: " + movieObj.content + "<br><br>" + insertStars(movieObj.stars) + "<br>Description: " + movieObj.plot;
 }
 
+
+function insertStars(num) {
+    var string = "";
+    var istar = "<i class='fa fa-star'></i>"
+    var iunstar = "<i class='fa fa-star-o'></i>"
+    for (var s = 0; s < 10; s++) {
+        if (s < num) {
+            string += istar;
+        }
+        else {
+            string += iunstar;
+        }
+    }
+    return string;
+    console.log(string);
+}
 
 
 function clearDetails() {
     $(".detailsImg").children().remove();
- 
+
 }
 
 // ********************** KEYBOARD EVENTS **********************
