@@ -58,5 +58,15 @@ a {
 }
 .movieImg {
 	display: inline-block;
+	margin: .5em;
 }
-
+.selected {
+	 box-shadow: 1px 1px 2em #fff;
+     -webkit-box-shadow: 1px 1px 2em #fff;
+     -moz-box-shadow: 1px 1px 2em #fff;
+	width: 210px;
+	/*  IE BOX SHADOW */
+	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
+-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
+zoom: 1;
+}

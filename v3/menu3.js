@@ -211,23 +211,47 @@ function clear(){
 
 // ********************** KEYBOARD EVENTS **********************
 
-// function generateMovieSelector() {
-//     var parent = $(".moviesByPropertyDiv")[0];
-//     applyStyle(derp);
-// }
-// function applyStyle(div) {
-//     div.css();
-// }
+function generateMovieSelector() {
+    var selected = $(".movieImg")[0];
+    $(selected).addClass("selected");
+}
 
 $(document).keydown(function(e) {
+    var selected = $(".selected");
+    var previous = selected.prev();
+    var next = selected.next();
+
+
     switch(e.which) {
         case 37: // left
+        // move selected highlight, keep selected img in view & attach beg/end
+        if (previous.length) {
+            previous.addClass("selected");
+            previous.get(0).scrollIntoView();
+            selected.removeClass("selected");
+        }
+        else {
+            selected.siblings(":last").addClass("selected");
+            selected.siblings(":last").get(0).scrollIntoView();
+            selected.removeClass("selected");
+        }
         break;
 
         case 38: // up
         break;
 
         case 39: // right
+        // move selected highlight, keep selected img in view & attach beg/end
+        if (next.length) {
+            next.addClass("selected");
+            next.get(0).scrollIntoView();
+            selected.removeClass("selected");
+        }
+        else {
+            selected.siblings(":first").addClass("selected");
+            selected.siblings(":first").get(0).scrollIntoView(); 
+            selected.removeClass("selected");   
+        }
         break;
 
         case 40: // down
@@ -254,5 +278,6 @@ $(document).keydown(function(e) {
 
 }
 vodApp();
+
 
 
