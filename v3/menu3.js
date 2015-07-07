@@ -16,7 +16,7 @@ Media.prototype.watchList = false;
 Media.prototype.history = false;
 Media.prototype.trailerUrl = "../assets/videos/movieclip.mp4"
 Media.prototype.videoUrl = "../assets/videos/movieclip.mp4"
-Media.prototype.plot = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel imperdiet turpis, non commodo ligula. Ut ut risus at leo rhoncus tempor non non dui. Donec nec quam non ipsum laoreet suscipit. Fusce viverra enim massa, tincidunt fringilla lorem condimentum eget. Aenean eu neque quis ex fringilla semper ut sit amet lorem. Duis scelerisque ex eget dolor finibus, nec vulputate dui venenatis. Nullam a euismod eros, vitae bibendum nulla. Quisque dictum nunc ipsum, vel finibus tortor dapibus sit amet. Maecenas tortor lacus, dignissim ut cursus ac, suscipit at risus. Curabitur id erat dui. Nunc at nunc at mi scelerisque suscipit. Morbi convallis blandit purus."
+Media.prototype.plot = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel imperdiet turpis, non commodo ligula. Ut ut risus at leo rhoncus tempor non non dui. Donec nec quam non ipsum laoreet suscipit. Fusce viverra enim massa, tincidunt fringilla lorem condimentum eget. Aenean eu neque quis ex fringilla semper ut sit amet lorem."
 
 // create movie objects && put movie objects into table
 var table = [
@@ -234,7 +234,7 @@ function displayDetails() {
 
     var text = document.getElementsByClassName('detailsText')[0];
 
-    text.innerHTML = "Title: " + movieObj.title + "<br>" + movieObj.year + "<br>Genre: " + movieObj.genre + "<br>Content: " + movieObj.content + "<br><br>" + insertStars(movieObj.stars) + "<br>Description: " + movieObj.plot;
+    text.innerHTML = "<strong>Title: </strong>" + movieObj.title + "<br>" + movieObj.year + "<br><strong>Genre: </strong>" + movieObj.genre + "<br><strong>Content: </strong>" + movieObj.content + "<br><br>" + insertStars(movieObj.stars) + "<br><strong>Description: </strong>" + movieObj.plot;
 }
 
 

@@ -24,11 +24,11 @@ a {
 
 .element {
 /*	width: 120px;
-	height: 160px;*/
-	box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
-	border: 1px solid rgba(127,255,255,0.25);
-	text-align: center;
-	cursor: default;
+height: 160px;*/
+box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+border: 1px solid rgba(127,255,255,0.25);
+text-align: center;
+cursor: default;
 }
 
 .logo {
@@ -43,7 +43,7 @@ a {
 }
 .selections  {
 /*	display: inline-block;
-	float: left;*/
+float: left;*/
 }
 .propertyTitle {
 	display: block;
@@ -53,40 +53,42 @@ a {
 }
 .moviesByPropertyDiv {
 	width: auto;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space:nowrap;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space:nowrap;
 }
 .movieImg {
 	display: inline-block;
 	margin: .5em;
 }
 .selected {
-	 box-shadow: 1px 1px 2em #fff;
-     -webkit-box-shadow: 1px 1px 2em #fff;
-     -moz-box-shadow: 1px 1px 2em #fff;
+	box-shadow: 1px 1px 2em #fff;
+	-webkit-box-shadow: 1px 1px 2em #fff;
+	-moz-box-shadow: 1px 1px 2em #fff;
 	width: 210px;
 	/*  IE BOX SHADOW */
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
--ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
-zoom: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
+	zoom: 1;
 }
 .detailsImg img {
 	float: right;
 	display: inline-block;
 	box-shadow: none;
-
+	margin: 1em;
+	width: 175px;
 }
 .detailsText {
-	color: white;
+	margin: 1em 0em 1em 1em;
+	padding: 1em;
 	float: left;
 	display: inline-block;
-	border: 1px solid white;
-	width: 70%;
+	width: 60%;
+	background-color: white;
 }
 .details {
+	background-color: white;
+	overflow: hidden;
 	width: 50%;
-	border: 1px solid white;
-	/*display: inline-block;*/
-
+	margin: 0 0 4em 25%;
 }
