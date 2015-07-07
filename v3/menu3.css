@@ -40,12 +40,23 @@ a {
 	display: inline-block;
 	float: right;
 }
-.selections {
+.selections  {
+/*	display: inline-block;
+	float: left;*/
+}
+.propertyTitle {
 	display: block;
-	HEIGHT: 50px;
 	clear: both;
+	color: white;
+	font-size: 2em;
 }
-.selections .element {
+.moviesByPropertyDiv {
+	width: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space:nowrap;
+}
+.movieImg {
 	display: inline-block;
-	float: left;
 }
+
