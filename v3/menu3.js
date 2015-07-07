@@ -44,7 +44,7 @@ new Media('../assets/boxcovers/wall_e.jpg', "Wall-E", "2008", "Family", 9, "G"),
 new Media('../assets/boxcovers/wreck_it_ralph.jpg', "Wreck-It Ralph", "2012", "Family", 7, "G"),
 ];
 
-table[0].history = true;
+
 
 // INTRO ANIMATION
 
@@ -59,14 +59,9 @@ table[0].history = true;
 
 function displayByGenre() {
     // sort movie results chronologically w/ newest first
-    function sortByYear(a, b){
-      if (a.year < b.year) return 1;
-      if (a.year > b.year) return -1;
-      return 0;
-  }
   table.sort(sortByYear);
     // start fresh if user switches to this menu
-    clear();
+    clearMenu();
     // generate an array of available genres
     var genresList = ["Latest"];
     for (var i = 0; i < table.length; i++) {
@@ -83,16 +78,17 @@ function displayByGenre() {
             if (table[k].genre === genresList[j] || 
                ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
                 populateMovieImgs(k, movieImgDiv);
-        }
+            }
 
+        }
     }
-}
+    generateMovieSelector(); 
 }
 //displayByGenre();
 
 function displayByAtoZ() {
     // start fresh when user switches to this menu
-    clear();
+    clearMenu();
     var aToZ = ["A-G", "H-P", "Q-Z"];
 
     // populate a div for alphabet categories
@@ -109,12 +105,16 @@ function displayByAtoZ() {
             }
         }
     }
+    generateMovieSelector(); 
+
 }
 //displayByAtoZ();
 
 function displayByRating() {
     // start fresh when user switches to this menu
-    clear();
+    clearMenu();
+    // return highest rated films in chronological order
+    table.sort(sortByYear);
     var pop = ["Best Rated"];
     // populate a div for most pop 
     for (var j = 0; j < pop.length; j++) {
@@ -133,7 +133,7 @@ displayByRating();
 
 function displayHistory() {
     // start fresh when user switches to this menu
-    clear();
+    clearMenu();
     var history = ["History"];
     // populate a div for most pop 
     for (var j = 0; j < history.length; j++) {
@@ -145,14 +145,15 @@ function displayHistory() {
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
-     }    
+     } 
+     generateMovieSelector();    
 }
 //displayHistory(); 
 
 
 function displayFavorites() {
     // start fresh when user switches to this menu
-    clear();
+    clearMenu();
     var favs = ["Favorites"];
     // populate a div for most pop 
     for (var j = 0; j < favs.length; j++) {
@@ -164,12 +165,13 @@ function displayFavorites() {
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
-    }    
+    }  
+    generateMovieSelector();   
 }
 
 function displayWatchList() {
     // start fresh when user switches to this menu
-    clear();
+    clearMenu();
     var watchList = ["Watch List"];
     // populate a div for most pop 
     for (var j = 0; j < watchList.length; j++) {
@@ -182,6 +184,7 @@ function displayWatchList() {
                 }
             }
     } 
+    generateMovieSelector(); 
 }
 // ********************** MENU DISPLAY HELPERS **********************
 
@@ -204,9 +207,39 @@ function populateCategoryTitles(categoryList, num) {
     moviesByPropertyDiv.className = "moviesByPropertyDiv";
     return moviesByPropertyDiv;
 }
-function clear(){
+function clearMenu(){
     $(".propertyTitle").remove();
     $(".moviesByPropertyDiv").remove();
+}
+
+function sortByYear(a, b){
+      if (a.year < b.year) return 1;
+      if (a.year > b.year) return -1;
+      return 0;
+  }
+
+// ********************** MOVIE DETAILS DISPLAY **********************
+
+function displayDetails() {
+    // clean div
+    clearDetails();
+    // find corresponding movie obj
+    var selectedMovie = $(".selected");
+    var movieId = selectedMovie.attr('id');
+    var findMovieObj = table.map(function(x) {return x.title; }).indexOf(movieId);
+    var movieObj = table[findMovieObj];
+    // clone boxCover to details div
+    selectedMovie.clone().appendTo(".detailsImg");
+    //
+    var text = document.getElementsByClassName('detailsText')[0];
+    text.innerHTML = movieObj.plot;
+}
+
+
+
+function clearDetails() {
+    $(".detailsImg").children().remove();
+ 
 }
 
 // ********************** KEYBOARD EVENTS **********************
@@ -214,6 +247,7 @@ function clear(){
 function generateMovieSelector() {
     var selected = $(".movieImg")[0];
     $(selected).addClass("selected");
+    displayDetails();
 }
 
 $(document).keydown(function(e) {
@@ -229,11 +263,13 @@ $(document).keydown(function(e) {
             previous.addClass("selected");
             previous.get(0).scrollIntoView();
             selected.removeClass("selected");
+            displayDetails();
         }
         else {
             selected.siblings(":last").addClass("selected");
             selected.siblings(":last").get(0).scrollIntoView();
             selected.removeClass("selected");
+            displayDetails();
         }
         break;
 
@@ -246,12 +282,17 @@ $(document).keydown(function(e) {
             next.addClass("selected");
             next.get(0).scrollIntoView();
             selected.removeClass("selected");
+            displayDetails();
         }
         else {
             selected.siblings(":first").addClass("selected");
             selected.siblings(":first").get(0).scrollIntoView(); 
             selected.removeClass("selected");   
+            displayDetails();
         }
+        break;
+
+        case 77: // "M"
         break;
 
         case 40: // down
@@ -263,8 +304,6 @@ $(document).keydown(function(e) {
         case 8 || 46: // backspace & delete
         break;
 
-        case 77: // "M"
-        break;
 
         case 27: // escape
         break;

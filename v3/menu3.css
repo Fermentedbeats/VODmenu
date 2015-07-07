@@ -5,7 +5,8 @@ html, body {
 body {
 	background-color: #000000;
 	margin: 1em;
-	font-family: Helvetica, sans-serif;;
+	font-family: Helvetica, sans-serif;
+	/*width: 100%;*/
 	/*overflow: hidden;*/
 }
 
@@ -69,4 +70,23 @@ a {
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
 -ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
 zoom: 1;
+}
+.detailsImg img {
+	float: right;
+	display: inline-block;
+	box-shadow: none;
+
+}
+.detailsText {
+	color: white;
+	float: left;
+	display: inline-block;
+	border: 1px solid white;
+	width: 70%;
+}
+.details {
+	width: 50%;
+	border: 1px solid white;
+	/*display: inline-block;*/
+
 }
