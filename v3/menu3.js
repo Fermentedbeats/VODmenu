@@ -44,20 +44,18 @@ new Media('../assets/boxcovers/wall_e.jpg', "Wall-E", "2008", "Family", 9, "G"),
 new Media('../assets/boxcovers/wreck_it_ralph.jpg', "Wreck-It Ralph", "2012", "Family", 7, "G"),
 ];
 
+table[0].history = true;
 
 // INTRO ANIMATION
 
 // riiiiiiiight
 
 
-// BUILDING MENUS
 
 
+// ********************** MENU DISPLAYS **********************
 
-function clear(){
-    $(".propertyTitle").remove();
-    $(".moviesByPropertyDiv").remove();
-}
+
 
 function displayByGenre() {
     // sort movie results chronologically w/ newest first
@@ -67,36 +65,28 @@ function displayByGenre() {
       return 0;
   }
   table.sort(sortByYear);
-  // start fresh if user switches to this menu
-  clear();
+    // start fresh if user switches to this menu
+    clear();
     // generate an array of available genres
-    var genresList = [];
+    var genresList = ["Latest"];
     for (var i = 0; i < table.length; i++) {
         genresList.push(table[i].genre);
     }
     genresList = _.uniq(genresList);
+
     // create a div for each genre && add a 'new' div on top
-    
     for (var j = 0; j < genresList.length; j++) {
-        var propertyDiv = document.createElement('div');
-        var moviesByPropertyDiv = document.createElement('div');
-        propertyDiv.className = "propertyTitle";
-        document.getElementsByClassName("selections")[0].appendChild(propertyDiv);
-        propertyDiv.innerHTML = genresList[j];
-        propertyDiv.appendChild(moviesByPropertyDiv);
-        moviesByPropertyDiv.className = "moviesByPropertyDiv";
+        var movieImgDiv = populateCategoryTitles(genresList, j);
+
         // populate boxCovers beneath each genre title div
         for (var k = 0; k < table.length; k++) {
-            if (table[k].genre === genresList[j]) {
-                var movieImg = document.createElement('img');
-                movieImg.src = table[k].boxCover;
-                movieImg.id = table[k].name;
-                movieImg.className = "movieImg";
-                moviesByPropertyDiv.appendChild(movieImg);
-            }
-
+            if (table[k].genre === genresList[j] || 
+               ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
+                populateMovieImgs(k, movieImgDiv);
         }
+
     }
+}
 }
 //displayByGenre();
 
@@ -105,55 +95,162 @@ function displayByAtoZ() {
     clear();
     var aToZ = ["A-G", "H-P", "Q-Z"];
 
+    // populate a div for alphabet categories
     for (var j = 0; j < aToZ.length; j++) {
-        var propertyDiv = document.createElement('div');
-        var moviesByPropertyDiv = document.createElement('div');
-        propertyDiv.className = "propertyTitle";
-        document.getElementsByClassName("selections")[0].appendChild(propertyDiv);
-        propertyDiv.innerHTML = aToZ[j];
-        propertyDiv.appendChild(moviesByPropertyDiv);
-        moviesByPropertyDiv.className = "moviesByPropertyDiv";
-        // populate boxCovers beneath each genre title div
+        var movieImgDiv = populateCategoryTitles(aToZ, j);
 
-        
+        // populate boxCovers beneath each title div
         for (var k = 0; k < table.length; k++) {
             var movieFirstLetter = table[k].title.split("")[0];
             var categoryFirstLetter = aToZ[j].split("")[0];
             var categoryLastLetter = aToZ[j].split("")[2];
             if (movieFirstLetter >= categoryFirstLetter && movieFirstLetter <= categoryLastLetter) {
-                var movieImg = document.createElement('img');
-                movieImg.src = table[k].boxCover;
-                movieImg.id = table[k].name;
-                movieImg.className = "movieImg";
-                moviesByPropertyDiv.appendChild(movieImg);
+                populateMovieImgs(k, movieImgDiv);
             }
         }
     }
-
-
-
 }
 //displayByAtoZ();
 
+function displayByRating() {
+    // start fresh when user switches to this menu
+    clear();
+    var pop = ["Best Rated"];
+    // populate a div for most pop 
+    for (var j = 0; j < pop.length; j++) {
+        var movieImgDiv = populateCategoryTitles(pop, j);
 
-function displayByPopularity() {
+        // populate boxCovers
+        for (var k = 0; k < table.length; k++) {
+            if (table[k].stars >= 8) {
+                populateMovieImgs(k, movieImgDiv);
+            }
+        }
+    } 
+    generateMovieSelector();   
+}
+displayByRating();
 
+function displayHistory() {
+    // start fresh when user switches to this menu
+    clear();
+    var history = ["History"];
+    // populate a div for most pop 
+    for (var j = 0; j < history.length; j++) {
+        var movieImgDiv = populateCategoryTitles(history, j);
+
+            // populate boxCovers
+            for (var k = 0; k < table.length; k++) {
+                if (table[k].history === true) {
+                    populateMovieImgs(k, movieImgDiv);
+                }
+            }
+     }    
+}
+//displayHistory(); 
+
+
+function displayFavorites() {
+    // start fresh when user switches to this menu
+    clear();
+    var favs = ["Favorites"];
+    // populate a div for most pop 
+    for (var j = 0; j < favs.length; j++) {
+        var movieImgDiv = populateCategoryTitles(favs, j);
+
+            // populate boxCovers
+            for (var k = 0; k < table.length; k++) {
+                if (table[k].favorite === true) {
+                    populateMovieImgs(k, movieImgDiv);
+                }
+            }
+    }    
 }
 
+function displayWatchList() {
+    // start fresh when user switches to this menu
+    clear();
+    var watchList = ["Watch List"];
+    // populate a div for most pop 
+    for (var j = 0; j < watchList.length; j++) {
+        var movieImgDiv = populateCategoryTitles(watchList, j);
 
-// console.log(genresList);
-    // DEFAULT: sort by genre
+            // populate boxCovers
+            for (var k = 0; k < table.length; k++) {
+                if (table[k].watchList === true) {
+                    populateMovieImgs(k, movieImgDiv);
+                }
+            }
+    } 
+}
+// ********************** MENU DISPLAY HELPERS **********************
 
 
-// DISPLAY BOXCOVERS
-//     for (var k = 0; k < table.length; k++) {
-//         var movieImg = document.createElement('img');
-//         movieImg.src = table[k].boxCover;
-//         movieImg.id = table[k].name;
-//         var home = document.getElementsByClassName("selections");
-//         home[0].appendChild(movieImg);
-//     }
-// } //end of init function
+function populateMovieImgs(num, parentDiv) {
+    var movieImg = document.createElement('img');
+    movieImg.src = table[num].boxCover;
+    movieImg.id = table[num].title;
+    movieImg.className = "movieImg";
+    parentDiv.appendChild(movieImg);
+}
+
+function populateCategoryTitles(categoryList, num) {
+    var propertyDiv = document.createElement('div');
+    var moviesByPropertyDiv = document.createElement('div');
+    propertyDiv.className = "propertyTitle";
+    document.getElementsByClassName("selections")[0].appendChild(propertyDiv);
+    propertyDiv.innerHTML = categoryList[num];
+    propertyDiv.appendChild(moviesByPropertyDiv);
+    moviesByPropertyDiv.className = "moviesByPropertyDiv";
+    return moviesByPropertyDiv;
+}
+function clear(){
+    $(".propertyTitle").remove();
+    $(".moviesByPropertyDiv").remove();
+}
+
+// ********************** KEYBOARD EVENTS **********************
+
+// function generateMovieSelector() {
+//     var parent = $(".moviesByPropertyDiv")[0];
+//     applyStyle(derp);
+// }
+// function applyStyle(div) {
+//     div.css();
+// }
+
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 37: // left
+        break;
+
+        case 38: // up
+        break;
+
+        case 39: // right
+        break;
+
+        case 40: // down
+        break;
+
+        case 13: // enter
+        break;
+
+        case 8 || 46: // backspace & delete
+        break;
+
+        case 77: // "M"
+        break;
+
+        case 27: // escape
+        break;
+
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
 
 }
 vodApp();
