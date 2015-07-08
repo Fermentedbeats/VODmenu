@@ -16,7 +16,7 @@ Media.prototype.watchList = false;
 Media.prototype.history = false;
 Media.prototype.trailerUrl = "../assets/videos/movieclip.mp4"
 Media.prototype.videoUrl = "../assets/videos/movieclip.mp4"
-Media.prototype.plot = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel imperdiet turpis, non commodo ligula. Ut ut risus at leo rhoncus tempor non non dui. Donec nec quam non ipsum laoreet suscipit. Fusce viverra enim massa, tincidunt fringilla lorem condimentum eget. Aenean eu neque quis ex fringilla semper ut sit amet lorem."
+Media.prototype.plot = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel imperdiet turpis, non commodo ligula. Ut ut risus at leo rhoncus tempor non non dui. Donec nec quam non ipsum laoreet suscipit. Fusce viverra enim massa, tincidunt fringilla lorem condimentum eget."
 
 // create movie objects && put movie objects into table
 var table = [
@@ -61,22 +61,22 @@ function renderMenu() {
 
     switch (activeMenu) { 
         case 'History': 
-            displayHistory();
+        displayHistory();
         break;
         case 'Watchlist': 
-            displayWatchList();
+        displayWatchList();
         break;      
         case 'Favorites': 
-            displayFavorites();
+        displayFavorites();
         break;
         case 'AZ': 
-            displayByAtoZ();
+        displayByAtoZ();
         break;
         case 'Popularity': 
-            displayByRating();
+        displayByRating();
         break;
         case 'Genre': 
-            displayByGenre();
+        displayByGenre();
         break;
         default:return;
     }
@@ -266,7 +266,7 @@ function displayDetails() {
     $(".detailsImg").append('<img src=' + '"' + movieObj.boxCover + '"' + '>');
     // add object property text to details box
     var text = document.getElementsByClassName('detailsText')[0];
-    text.innerHTML = "<strong>Title: </strong>" + movieObj.title + "<br>" + movieObj.year + "<br><strong>Genre: </strong>" + movieObj.genre + "<br><strong>Content: </strong>" + movieObj.content + "<br><br>" + insertStars(movieObj.stars) + "<br><strong>Description: </strong>" + movieObj.plot;
+    text.innerHTML = "<span id='detailsTitle'><strong>" + movieObj.title + "</span><br>Year: </strong>" + movieObj.year + "<br><strong>Genre: </strong>" + movieObj.genre + "<br><strong>Content: </strong>" + movieObj.content + "<br>" + insertStars(movieObj.stars) + "<br><strong>Description: </strong>" + movieObj.plot;
 }
 
 // generate star rating star images
@@ -283,13 +283,11 @@ function insertStars(num) {
         }
     }
     return string;
-    console.log(string);
 }
 
 // clear previous detail menu images
 function clearDetails() {
     $(".detailsImg").children().remove();
-
 }
 
 // ********************** KEYBOARD EVENTS **********************
@@ -409,6 +407,8 @@ $(document).keydown(function(e) {
 
 
         case 13: // enter
+            var movieId = $(".selected").attr('id');
+            loadVideo(movieId);
         break;
 
         case 8 || 46: // backspace & delete
@@ -424,6 +424,27 @@ $(document).keydown(function(e) {
     e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
+// ********************** VIDEO LOAD **********************
+function loadVideo(title){
+    // var movieId = selectedMovie.attr('id');
+    var findMovieObj = table.map(function(x) {return x.title; }).indexOf(title);
+    var movieObj = table[findMovieObj];
+    var url = movieObj.videoUrl;
+    console.log(url);
+    
+    w = window.open('video.html', '', 'fullscreen=yes, scrollbars=auto');
+    d = w.document.open('text/html', 'replace');
+    d.writeln('<video id="video" width="100%" autoplay controls><source src=' + url + ' type=video/mp4>Your browser does not support the video tag.</video>');
+
+
+}
+
+
+        // <source src="movie.ogg" type="video/ogg">
+
+
+// ********************** CONTROLLER **********************
+// call inital menu load
 loadMenu();
 }
 vodApp();

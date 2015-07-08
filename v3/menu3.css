@@ -14,23 +14,6 @@ a {
 	color: #ffffff;
 }
 
-
-#menu {
-	position: absolute;
-	bottom: 20px;
-	width: 100%;
-	text-align: center;
-}
-
-.element {
-/*	width: 120px;
-height: 160px;*/
-box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
-border: 1px solid rgba(127,255,255,0.25);
-text-align: center;
-cursor: default;
-}
-
 .logo {
 	display: inline-block;
 	float: right;
@@ -61,12 +44,13 @@ cursor: default;
 .movieImg {
 	display: inline-block;
 	margin: .5em;
+	width: 150px;
 }
 .selected {
 	box-shadow: 1px 1px 2em #fff;
 	-webkit-box-shadow: 1px 1px 2em #fff;
 	-moz-box-shadow: 1px 1px 2em #fff;
-	width: 210px;
+	width: 165px;
 	/*  IE BOX SHADOW */
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
@@ -77,44 +61,57 @@ cursor: default;
 	display: inline-block;
 	box-shadow: none;
 	margin: 1em;
-	width: 175px;
+	width: 150px;
 }
 .detailsText {
 	margin: 1em 0em 1em 1em;
-	padding: 1em;
+	/*padding: 1em;*/
 	float: left;
 	display: inline-block;
 	width: 60%;
 	background-color: white;
+}
+#detailsTitle {
+	font-size: 1.5em;
+	width: 100%;
+	text-align: center;
 }
 .details {
 	background-color: white;
 	opacity: .9;
 	overflow: hidden;
 	width: 50%;
-	margin: 0 2% 0 48%;
+	margin: 0 2% 5% 48%;
 	position: fixed;
 }
 .selections  {
 	clear: both;
-	position: fixed;
+	position: absolute;
+	overflow-y: scroll;
 	overflow: scroll;
-	height: 70%;
+	height: 55%;
 	/*border: 1px solid red;*/
 }
 .header {
+	/*position: fixed;*/
 	display: block;
-	height: 300px;
-	widows: 100%;
+	height: 400px;
+	width: 100%;
 }
 .selectedMenu {
+	/*margin: 1em;*/
+	font-size: 1.2em;
 	background-color: #369;
+	color: #369;
 	border-radius: 10%;
-		box-shadow: 1px 1px 2em #fff;
+	box-shadow: 1px 1px 2em #fff;
 	-webkit-box-shadow: 1px 1px 2em #fff;
 	-moz-box-shadow: 1px 1px 2em #fff;
 	/*  IE BOX SHADOW */
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
 	zoom: 1;
+}
+video {
+	z-index: 999;
 }
