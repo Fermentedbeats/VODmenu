@@ -53,6 +53,38 @@ new Media('../assets/boxcovers/wreck_it_ralph.jpg', "Wreck-It Ralph", "2012", "F
 
 
 
+// ********************** RENDERING MENUS **********************
+
+function renderMenu() {
+    var activeMenu = $('.selectedMenu').attr("id");
+    console.log(activeMenu);
+
+    switch (activeMenu) { 
+        case 'History': 
+            displayHistory();
+        break;
+        case 'Watchlist': 
+            displayWatchList();
+        break;      
+        case 'Favorites': 
+            displayFavorites();
+        break;
+        case 'AZ': 
+            displayByAtoZ();
+        break;
+        case 'Popularity': 
+            displayByRating();
+        break;
+        case 'Genre': 
+            displayByGenre();
+        break;
+        default:return;
+    }
+
+    
+}
+
+
 // ********************** MENU DISPLAYS **********************
 
 
@@ -76,7 +108,7 @@ function displayByGenre() {
         // populate boxCovers beneath each genre title div
         for (var k = 0; k < table.length; k++) {
             if (table[k].genre === genresList[j] || 
-               ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
+             ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
                 populateMovieImgs(k, movieImgDiv);
         }
 
@@ -314,62 +346,64 @@ $(document).keydown(function(e) {
             break;
 
         case 40: // down
-            if (down.length) {
-                down.addClass("selected");
-                down.get(0).scrollIntoView();
-                selected.removeClass("selected");
-                displayDetails();
-    
-            }
-            else {
-                firstImg.addClass("selected")
-                firstImg.get(0).scrollIntoView(); 
-                selected.removeClass("selected");   
-                displayDetails();
-            }
-            break;
+        if (down.length) {
+            down.addClass("selected");
+            down.get(0).scrollIntoView();
+            selected.removeClass("selected");
+            displayDetails();
+
+        }
+        else {
+            firstImg.addClass("selected")
+            firstImg.get(0).scrollIntoView(); 
+            selected.removeClass("selected");   
+            displayDetails();
+        }
+        break;
 
         case 37: // left
         // move selected highlight, keep selected img in view & attach beg/end
-            if (previous.length) {
-                previous.addClass("selected");
-                previous.get(0).scrollIntoView();
-                selected.removeClass("selected");
-                displayDetails();
-            }
-            else {
-                selected.siblings(":last").addClass("selected");
-                selected.siblings(":last").get(0).scrollIntoView();
-                selected.removeClass("selected");
-                displayDetails();
-            }
-            break;
+        if (previous.length) {
+            previous.addClass("selected");
+            previous.get(0).scrollIntoView();
+            selected.removeClass("selected");
+            displayDetails();
+        }
+        else {
+            selected.siblings(":last").addClass("selected");
+            selected.siblings(":last").get(0).scrollIntoView();
+            selected.removeClass("selected");
+            displayDetails();
+        }
+        break;
 
         case 39: // right
         // move selected highlight, keep selected img in view & attach beg/end
-            if (next.length) {
-                next.addClass("selected");
-                next.get(0).scrollIntoView();
-                selected.removeClass("selected");
-                displayDetails();
-            }
-            else {
-                selected.siblings(":first").addClass("selected");
-                selected.siblings(":first").get(0).scrollIntoView(); 
-                selected.removeClass("selected");   
-                displayDetails();
-            }
-            break;
+        if (next.length) {
+            next.addClass("selected");
+            next.get(0).scrollIntoView();
+            selected.removeClass("selected");
+            displayDetails();
+        }
+        else {
+            selected.siblings(":first").addClass("selected");
+            selected.siblings(":first").get(0).scrollIntoView(); 
+            selected.removeClass("selected");   
+            displayDetails();
+        }
+        break;
 
         case 77: // "M" // goes right
-            if (prevMenu.length) {
-                prevMenu.addClass("selectedMenu");
-                selectedMenu.removeClass("selectedMenu");
-            }
-            else {
-                selectedMenu.removeClass("selectedMenu");   
-                menus.last().addClass("selectedMenu");
-            }
+        if (prevMenu.length) {
+            prevMenu.addClass("selectedMenu");
+            selectedMenu.removeClass("selectedMenu");
+            renderMenu();
+        }
+        else {
+            selectedMenu.removeClass("selectedMenu");   
+            menus.last().addClass("selectedMenu");
+            renderMenu();
+        }
         break;
 
 
