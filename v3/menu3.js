@@ -265,84 +265,93 @@ function clearDetails() {
 
 // ********************** KEYBOARD EVENTS **********************
 
+// instantiate first video as 'selected'
 function generateMovieSelector() {
     var selected = $(".movieImg")[0];
     $(selected).addClass("selected");
     displayDetails();
 }
 
+// all IMAGE & MENU keydown functions
 $(document).keydown(function(e) {
     // left & right vars
     var selected = $(".selected");
     var previous = selected.prev();
     var next = selected.next();
-
+    // up & down vars
     var firstImg = $('.movieImg').first();
+    var lastImg = $('.movieImg').last();
     var parent = selected.parent().parent();
     var nextParent = parent.next();
+    var previousParent = parent.prev();
     var down = nextParent.children(':first-child').children(':first-child');
+    var up = previousParent.children(':first-child').children(':first-child');
 
-    console.log(firstImg);
-    // var down = selected.parent().next().children(':first-child');
-    // var down = parent
-    //.next()
-    //.children(':first-child');
-    // var up = selected.parent().parent().prev().children().children();
 
     switch(e.which) {
+            case 38: // up
+            if (up.length) {
+                up.addClass("selected");
+                up.get(0).scrollIntoView();
+                selected.removeClass("selected");
+                displayDetails();
 
+            }
+            else {
+                lastImg.addClass("selected")
+                lastImg.get(0).scrollIntoView(); 
+                selected.removeClass("selected");   
+                displayDetails();
+            }
+            break;
 
         case 40: // down
-        if (down.length) {
-            down.addClass("selected");
-            down.get(0).scrollIntoView();
-            selected.removeClass("selected");
-            displayDetails();
-
-        }
-        else {
-            firstImg.addClass("selected")
-            firstImg.get(0).scrollIntoView(); 
-            selected.removeClass("selected");   
-            displayDetails();
-        }
-        break;
-
-        case 38: // up
-        break;
-
+            if (down.length) {
+                down.addClass("selected");
+                down.get(0).scrollIntoView();
+                selected.removeClass("selected");
+                displayDetails();
+    
+            }
+            else {
+                firstImg.addClass("selected")
+                firstImg.get(0).scrollIntoView(); 
+                selected.removeClass("selected");   
+                displayDetails();
+            }
+            break;
 
         case 37: // left
         // move selected highlight, keep selected img in view & attach beg/end
-        if (previous.length) {
-            previous.addClass("selected");
-            previous.get(0).scrollIntoView();
-            selected.removeClass("selected");
-            displayDetails();
-        }
-        else {
-            selected.siblings(":last").addClass("selected");
-            selected.siblings(":last").get(0).scrollIntoView();
-            selected.removeClass("selected");
-            displayDetails();
-        }
-        break;
+            if (previous.length) {
+                previous.addClass("selected");
+                previous.get(0).scrollIntoView();
+                selected.removeClass("selected");
+                displayDetails();
+            }
+            else {
+                selected.siblings(":last").addClass("selected");
+                selected.siblings(":last").get(0).scrollIntoView();
+                selected.removeClass("selected");
+                displayDetails();
+            }
+            break;
 
         case 39: // right
         // move selected highlight, keep selected img in view & attach beg/end
-        if (next.length) {
-            next.addClass("selected");
-            next.get(0).scrollIntoView();
-            selected.removeClass("selected");
-            displayDetails();
-        }
-        else {
-            selected.siblings(":first").addClass("selected");
-            selected.siblings(":first").get(0).scrollIntoView(); 
-            selected.removeClass("selected");   
-            displayDetails();
-        }
-        break;
+            if (next.length) {
+                next.addClass("selected");
+                next.get(0).scrollIntoView();
+                selected.removeClass("selected");
+                displayDetails();
+            }
+            else {
+                selected.siblings(":first").addClass("selected");
+                selected.siblings(":first").get(0).scrollIntoView(); 
+                selected.removeClass("selected");   
+                displayDetails();
+            }
+            break;
 
         case 77: // "M"
         break;
