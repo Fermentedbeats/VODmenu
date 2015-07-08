@@ -90,11 +90,14 @@ cursor: default;
 	background-color: white;
 	overflow: hidden;
 	width: 50%;
-	margin: 0 0 0 25%;
+	margin: 0 2% 0 48%;
 	position: fixed;
 }
 .selections  {
 	clear: both;
+	position: fixed;
+	overflow: scroll;
+	height: 70%;
 	/*border: 1px solid red;*/
 }
 .header {
