@@ -76,7 +76,7 @@ function displayByGenre() {
         // populate boxCovers beneath each genre title div
         for (var k = 0; k < table.length; k++) {
             if (table[k].genre === genresList[j] || 
-             ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
+               ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
                 populateMovieImgs(k, movieImgDiv);
         }
 
@@ -108,7 +108,7 @@ function displayByAtoZ() {
     generateMovieSelector(); 
 
 }
-//displayByAtoZ();
+displayByAtoZ();
 
 function displayByRating() {
     // start fresh when user switches to this menu
@@ -129,7 +129,7 @@ function displayByRating() {
     } 
     generateMovieSelector();   
 }
-displayByRating();
+//displayByRating();
 
 function displayHistory() {
     // start fresh when user switches to this menu
@@ -193,7 +193,7 @@ function populateMovieImgs(num, parentDiv) {
     var movieImg = document.createElement('img');
     movieImg.src = table[num].boxCover;
     movieImg.id = table[num].title;
-    movieImg.className = "movieImg";
+    movieImg.className = "movieImg ";
     parentDiv.appendChild(movieImg);
 }
 
@@ -229,7 +229,10 @@ function displayDetails() {
     var findMovieObj = table.map(function(x) {return x.title; }).indexOf(movieId);
     var movieObj = table[findMovieObj];
     // clone boxCover to details div
-    selectedMovie.clone().appendTo(".detailsImg");
+    $(".detailsImg").append('<img src=' + '"' + movieObj.boxCover + '"' + '>');
+
+
+    // selectedMovie.clone().appendTo(".detailsImg");
     //
 
     var text = document.getElementsByClassName('detailsText')[0];
@@ -269,12 +272,46 @@ function generateMovieSelector() {
 }
 
 $(document).keydown(function(e) {
+    // left & right vars
     var selected = $(".selected");
     var previous = selected.prev();
     var next = selected.next();
 
+    var firstImg = $('.movieImg').first();
+    var parent = selected.parent().parent();
+    var nextParent = parent.next();
+    var down = nextParent.children(':first-child').children(':first-child');
+
+    console.log(firstImg);
+    // var down = selected.parent().next().children(':first-child');
+    // var down = parent
+    //.next()
+    //.children(':first-child');
+    // var up = selected.parent().parent().prev().children().children();
 
     switch(e.which) {
+
+
+        case 40: // down
+        if (down.length) {
+            down.addClass("selected");
+            down.get(0).scrollIntoView();
+            selected.removeClass("selected");
+            displayDetails();
+
+        }
+        else {
+            firstImg.addClass("selected")
+            firstImg.get(0).scrollIntoView(); 
+            selected.removeClass("selected");   
+            displayDetails();
+        }
+        break;
+
+        case 38: // up
+        break;
+
+
         case 37: // left
         // move selected highlight, keep selected img in view & attach beg/end
         if (previous.length) {
@@ -289,9 +326,6 @@ $(document).keydown(function(e) {
             selected.removeClass("selected");
             displayDetails();
         }
-        break;
-
-        case 38: // up
         break;
 
         case 39: // right
@@ -313,8 +347,7 @@ $(document).keydown(function(e) {
         case 77: // "M"
         break;
 
-        case 40: // down
-        break;
+
 
         case 13: // enter
         break;

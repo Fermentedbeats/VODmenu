@@ -41,9 +41,9 @@ cursor: default;
 	display: inline-block;
 	float: right;
 }
-.selections  {
-/*	display: inline-block;
-float: left;*/
+.nav {
+	float: right;
+	position: fixed;
 }
 .propertyTitle {
 	display: block;
@@ -90,5 +90,15 @@ float: left;*/
 	background-color: white;
 	overflow: hidden;
 	width: 50%;
-	margin: 0 0 4em 25%;
+	margin: 0 0 0 25%;
+	position: fixed;
+}
+.selections  {
+	clear: both;
+	/*border: 1px solid red;*/
+}
+.header {
+	display: block;
+	height: 300px;
+	widows: 100%;
 }
