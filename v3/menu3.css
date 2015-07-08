@@ -42,6 +42,7 @@ cursor: default;
 	float: right;
 }
 .nav {
+	color: white;
 	float: right;
 	position: fixed;
 }
@@ -88,6 +89,7 @@ cursor: default;
 }
 .details {
 	background-color: white;
+	opacity: .9;
 	overflow: hidden;
 	width: 50%;
 	margin: 0 2% 0 48%;
@@ -104,4 +106,15 @@ cursor: default;
 	display: block;
 	height: 300px;
 	widows: 100%;
+}
+.selectedMenu {
+	background-color: #369;
+	border-radius: 10%;
+		box-shadow: 1px 1px 2em #fff;
+	-webkit-box-shadow: 1px 1px 2em #fff;
+	-moz-box-shadow: 1px 1px 2em #fff;
+	/*  IE BOX SHADOW */
+	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
+	zoom: 1;
 }

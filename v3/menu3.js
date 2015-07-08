@@ -188,7 +188,7 @@ function displayFavorites() {
     }
 // ********************** MENU DISPLAY HELPERS **********************
 
-
+// in menu generation loops this populates the boxCovers
 function populateMovieImgs(num, parentDiv) {
     var movieImg = document.createElement('img');
     movieImg.src = table[num].boxCover;
@@ -196,7 +196,7 @@ function populateMovieImgs(num, parentDiv) {
     movieImg.className = "movieImg ";
     parentDiv.appendChild(movieImg);
 }
-
+// in menu generation loops this populates the title bars
 function populateCategoryTitles(categoryList, num) {
     var propertyDiv = document.createElement('div');
     var moviesByPropertyDiv = document.createElement('div');
@@ -207,11 +207,12 @@ function populateCategoryTitles(categoryList, num) {
     moviesByPropertyDiv.className = "moviesByPropertyDiv";
     return moviesByPropertyDiv;
 }
+// in menu generation loops this clears the last menu
 function clearMenu(){
     $(".propertyTitle").remove();
     $(".moviesByPropertyDiv").remove();
 }
-
+// keeps menus stacked with latest movies first
 function sortByYear(a, b){
   if (a.year < b.year) return 1;
   if (a.year > b.year) return -1;
@@ -228,19 +229,15 @@ function displayDetails() {
     var movieId = selectedMovie.attr('id');
     var findMovieObj = table.map(function(x) {return x.title; }).indexOf(movieId);
     var movieObj = table[findMovieObj];
+
     // clone boxCover to details div
     $(".detailsImg").append('<img src=' + '"' + movieObj.boxCover + '"' + '>');
-
-
-    // selectedMovie.clone().appendTo(".detailsImg");
-    //
-
+    // add object property text to details box
     var text = document.getElementsByClassName('detailsText')[0];
-
     text.innerHTML = "<strong>Title: </strong>" + movieObj.title + "<br>" + movieObj.year + "<br><strong>Genre: </strong>" + movieObj.genre + "<br><strong>Content: </strong>" + movieObj.content + "<br><br>" + insertStars(movieObj.stars) + "<br><strong>Description: </strong>" + movieObj.plot;
 }
 
-
+// generate star rating star images
 function insertStars(num) {
     var string = "";
     var istar = "<i class='fa fa-star'></i>"
@@ -257,7 +254,7 @@ function insertStars(num) {
     console.log(string);
 }
 
-
+// clear previous detail menu images
 function clearDetails() {
     $(".detailsImg").children().remove();
 
@@ -271,9 +268,16 @@ function generateMovieSelector() {
     $(selected).addClass("selected");
     displayDetails();
 }
+// instantiate first menu option as 'selected'
+function loadMenu() {
+    var selected = $(".menu").last();
+    $(selected).addClass("selectedMenu");
+}
+
 
 // all IMAGE & MENU keydown functions
 $(document).keydown(function(e) {
+
     // left & right vars
     var selected = $(".selected");
     var previous = selected.prev();
@@ -286,6 +290,10 @@ $(document).keydown(function(e) {
     var previousParent = parent.prev();
     var down = nextParent.children(':first-child').children(':first-child');
     var up = previousParent.children(':first-child').children(':first-child');
+    // menu vars
+    var menus = $('.menu');
+    var selectedMenu = $('.selectedMenu');
+    var prevMenu = selectedMenu.prev();
 
 
     switch(e.which) {
@@ -353,7 +361,15 @@ $(document).keydown(function(e) {
             }
             break;
 
-        case 77: // "M"
+        case 77: // "M" // goes right
+            if (prevMenu.length) {
+                prevMenu.addClass("selectedMenu");
+                selectedMenu.removeClass("selectedMenu");
+            }
+            else {
+                selectedMenu.removeClass("selectedMenu");   
+                menus.last().addClass("selectedMenu");
+            }
         break;
 
 
@@ -374,7 +390,7 @@ $(document).keydown(function(e) {
     e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
-
+loadMenu();
 }
 vodApp();
 
