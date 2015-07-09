@@ -78,7 +78,7 @@ body {
 	background-color: white;
 }
 #detailsTitle {
-	font-size: 1em;
+	font-size: 1.1em;
 	width: 100%;
 	text-align: center;
 }
@@ -107,9 +107,10 @@ body {
 .selectedNavMenu {
 	/*margin: 1em;*/
 	font-size: 1.2em;
-	background-color: #369;
-	color: #369;
-	border-radius: 10%;
+	background-color: #6BCAE2;
+	color: #6BCAE2;
+	border-radius: 50%;
+	padding: .1em;
 	box-shadow: 1px 1px 2em #fff;
 	-webkit-box-shadow: 1px 1px 2em #fff;
 	-moz-box-shadow: 1px 1px 2em #fff;
@@ -129,9 +130,11 @@ video {
 	float: left;
 	color: white;
 	position: fixed;
-	margin:4em 0 0 2em;
+	margin:3em 0 0 2em;
+	font-size: .9em;
+		font-weight: 200;
 }
 .instructions span {
-		color: #369;
+		color: #6BCAE2;
 		font-weight: bold;
 }
