@@ -1,18 +1,19 @@
+* {
+
+	font-family: "Verdana", sans-serif;
+}
+
 html, body {
 	height: 100%;
 }
 
 body {
 	background-color: #000000;
-	margin: 1em;
-	font-family: Helvetica, sans-serif;
+	margin: 1em 2em;
 	/*width: 100%;*/
 	/*overflow: hidden;*/
 }
 
-a {
-	color: #ffffff;
-}
 
 .logo {
 	display: inline-block;
@@ -34,6 +35,11 @@ a {
 	clear: both;
 	color: white;
 	font-size: 2em;
+	overflow: auto;
+	overflow: auto;
+	overflow: auto;
+	margin-top: .3em;
+	/*position: absolute;*/
 }
 .moviesByPropertyDiv {
 	width: auto;
@@ -44,13 +50,13 @@ a {
 .movieImg {
 	display: inline-block;
 	margin: .5em;
-	width: 150px;
+	width: 100px;
 }
 .selected {
 	box-shadow: 1px 1px 2em #fff;
 	-webkit-box-shadow: 1px 1px 2em #fff;
 	-moz-box-shadow: 1px 1px 2em #fff;
-	width: 165px;
+	width: 115px;
 	/*  IE BOX SHADOW */
 	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30);
 	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
@@ -61,18 +67,18 @@ a {
 	display: inline-block;
 	box-shadow: none;
 	margin: 1em;
-	width: 150px;
+	width: 125px;
 }
 .detailsText {
 	margin: 1em 0em 1em 1em;
-	/*padding: 1em;*/
+	font-size: .9em;
 	float: left;
 	display: inline-block;
 	width: 60%;
 	background-color: white;
 }
 #detailsTitle {
-	font-size: 1.5em;
+	font-size: 1em;
 	width: 100%;
 	text-align: center;
 }
@@ -95,7 +101,7 @@ a {
 .header {
 	/*position: fixed;*/
 	display: block;
-	height: 400px;
+	height: 300px;
 	width: 100%;
 }
 .selectedNavMenu {
@@ -112,6 +118,20 @@ a {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
 	zoom: 1;
 }
+.navMenu {
+
+}
 video {
 	z-index: 999;
+}
+.instructions {
+	display: inline;
+	float: left;
+	color: white;
+	position: fixed;
+	margin:4em 0 0 2em;
+}
+.instructions span {
+		color: #369;
+		font-weight: bold;
 }

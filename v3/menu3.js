@@ -113,7 +113,7 @@ function displayByGenre() {
 }
 generateMovieSelector(); 
 }
-//displayByGenre();
+displayByGenre();
 
 function displayByAtoZ() {
     // start fresh when user switches to this menu
@@ -135,9 +135,8 @@ function displayByAtoZ() {
         }
     }
     generateMovieSelector(); 
-
 }
-displayByAtoZ();
+// displayByAtoZ();
 
 function displayByRating() {
     // start fresh when user switches to this menu
@@ -193,6 +192,7 @@ function displayFavorites() {
             // populate boxCovers
             for (var k = 0; k < table.length; k++) {
                 if (table[k].favorite === true) {
+                    isThereAMatch = true;
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
@@ -213,11 +213,12 @@ function displayFavorites() {
             // populate boxCovers
             for (var k = 0; k < table.length; k++) {
                 if (table[k].watchList === true) {
+                    isThereAMatch = true;
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
         } 
-    isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("watchlist");
+    isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("watchList");
     }
 
 
@@ -226,7 +227,7 @@ function displayEmptyTitleMenu(category) {
     var displayText;
     var historyText = "Watch a movie to automatically add it to your History.";
     var favoritesText = "You have no favorites! Push the F key when you see a favorite to add it here.";
-    var watchlistText = "Find something you want to watch later? Push the W key to add it to your Watchlist.";
+    var watchListText = "Find something you want to watch later? Push the W key to add it to your Watchlist.";
 
     switch(category) {
         case "history":
@@ -235,8 +236,8 @@ function displayEmptyTitleMenu(category) {
         case "favorites":
             displayText = favoritesText;
         break;
-        case "watchlist":
-           displayText = watchlistText;
+        case "watchList":
+           displayText = watchListText;
         break;
     }
 
@@ -342,11 +343,11 @@ function loadNavSelection() {
 // keydown functions
 $(document).keydown(function(e) {
 
-    // left & right vars
+// left & right vars
     var selected = $(".selected");
     var previous = selected.prev();
     var next = selected.next();
-    // up & down vars
+// up & down vars
     var firstImg = $('.movieImg').first();
     var lastImg = $('.movieImg').last();
     var parent = selected.parent().parent();
@@ -355,28 +356,40 @@ $(document).keydown(function(e) {
     var down = nextParent.children(':first-child').children(':first-child');
     var up = previousParent.children(':first-child').children(':first-child');
     var firstImgOfLastDiv = parent.siblings().last().children(':first-child').children(':first-child');
-
     var firstImgOfFirstDiv = parent.siblings().first().children(':first-child').children(':first-child');
-    
+// title menu vars
+    // left & right
+    var titleParent = selected.parent().parent();
+    // up & down
+    var upTitleParent = up.parent().parent();
+    var downTitleParent = down.parent().parent();
+    var firstFirstParent = firstImgOfFirstDiv.parent().parent()
+    var firstLastParent = firstImgOfLastDiv.parent().parent()
+    // console.log(firstFirstParent);
 
-    console.log(firstImgOfLastDiv);
-    // nav menu vars
+// nav menu vars
     var navMenus = $('.navMenu');
     var selectedNavMenu = $('.selectedNavMenu');
     var prevMenu = selectedNavMenu.prev();
+// movie obj for video load, history, favorite & watchlist
+    var movieTitle = selected.attr('id');
+    var findMovieObj = table.map(function(x) {return x.title;}).indexOf(movieTitle);
+    var movieObj = table[findMovieObj];
 
-
+// KEY DOWN ASSIGNMENT
     switch(e.which) {
             case 38: // up
             if (up.length) {
                 up.addClass("selected");
                 up.get(0).scrollIntoView();
+                upTitleParent.get(0).scrollIntoView();
                 selected.removeClass("selected");
                 displayDetails();
             }
             else {
                 firstImgOfLastDiv.addClass("selected")
                 firstImgOfLastDiv.get(0).scrollIntoView(); 
+                firstLastParent.parent().parent().get(0).scrollIntoView();
                 selected.removeClass("selected");   
                 displayDetails();
             }
@@ -386,15 +399,18 @@ $(document).keydown(function(e) {
         if (down.length) {
             down.addClass("selected");
             down.get(0).scrollIntoView();
+            downTitleParent.get(0).scrollIntoView();
             selected.removeClass("selected");
             displayDetails();
 
         }
         else {
             firstImgOfFirstDiv.addClass("selected")
-            firstImgOfFirstDiv.get(0).scrollIntoView(); 
+            firstImgOfFirstDiv.get(0).scrollIntoView();
+            firstFirstParent.get(0).scrollIntoView();
             selected.removeClass("selected");   
             displayDetails();
+            // console.log(firstImgOfFirstDiv.parent().parent());
         }
         break;
 
@@ -403,12 +419,14 @@ $(document).keydown(function(e) {
         if (previous.length) {
             previous.addClass("selected");
             previous.get(0).scrollIntoView();
+            titleParent.get(0).scrollIntoView();
             selected.removeClass("selected");
             displayDetails();
         }
         else {
             selected.siblings(":last").addClass("selected");
             selected.siblings(":last").get(0).scrollIntoView();
+            titleParent.get(0).scrollIntoView();
             selected.removeClass("selected");
             displayDetails();
         }
@@ -419,6 +437,7 @@ $(document).keydown(function(e) {
         if (next.length) {
             next.addClass("selected");
             next.get(0).scrollIntoView();
+            titleParent.get(0).scrollIntoView();
             selected.removeClass("selected");
             displayDetails();
         }
@@ -443,15 +462,21 @@ $(document).keydown(function(e) {
         }
         break;
 
+        case 70: // "F" // favorites
+            movieObj.favorite = true;
+        break;
+
+        case 87: // "W" //  watchList
+            movieObj.watchList = true;
+        break;
+
         case 13: // enter
-
         // find url in movie object & pass to video load function
-        var movieTitle = selected.attr('id');
-        var findMovieObj = table.map(function(x) {return x.title; }).indexOf(movieTitle);
-        var movieObj = table[findMovieObj];
-        var url = movieObj.videoUrl;
-        loadVideo(url);
-
+        var htmlUrl = movieObj.videoUrl;
+        var oggUrl = movieObj.videoUrl;
+        var flashUrl = movieObj.videoUrl;
+        var flashPlaceholder = movieObj.boxCover;
+        loadVideo(htmlUrl, oggUrl, flashUrl, flashPlaceholder);
         // add video load to history
         movieObj.history = true;
         break;
@@ -462,23 +487,16 @@ $(document).keydown(function(e) {
 });
 
 // ********************** VIDEO LOAD **********************
-function loadVideo(url){
 
+// tree for html5 with ogg & flash back-ups
+// (does not work  - only mp4 file in repository)
+function loadVideo(htmlUrl, oggUrl, flashUrl, flashPlaceholder){
     
     
     w = window.open('video.html', '', 'fullscreen=yes, scrollbars=auto');
     d = w.document.open('text/html', 'replace');
-    d.writeln('<video id="video" width="100%" autoplay controls><source src=' + url + ' type=video/mp4>Your browser does not support the video tag.</video><script>window.onkeydown = function(event) {if ( event.keyCode === 27 || event.keyCode === 8 || event.keyCode === 46 ){window.close();}};</script>');
-
-
-        // window.close();
-
-
+    d.writeln('<video id="video" width="100%" autoplay controls><source src=' + htmlUrl + ' type=video/mp4 codecs=avc1.42E01E, mp4a.40.2><source src=' + oggUrl + 'type=video/ogg; codecs=theora, vorbis><object width=100% type=application/x-shockwave-flash data=' + flashUrl + '?image=' + flashPlaceholder + '&file=' + htmlUrl + '><param name=movie value=path/to/swf/player.swf?image=placeholder.jpg&file=path/to/myvideo.mp4/></object>Your browser does not support the video tag.</video><script>window.onkeydown = function(event) {if ( event.keyCode === 27 || event.keyCode === 8 || event.keyCode === 46 ){window.close();}};</script>');
 }
-
-
-        // <source src="movie.ogg" type="video/ogg">
-
 
 // ********************** CONTROLLER **********************
 // call inital menu load
