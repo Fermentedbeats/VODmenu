@@ -60,6 +60,9 @@ body {
 	zoom: 1;
 }
 .propertyTitle {
+	position: relative;
+	z-index: -1;
+
 	display: block;
 	clear: both;
 	color: white;
@@ -68,24 +71,28 @@ body {
 	overflow: auto;
 	overflow: auto;
 	margin-top: .3em;
-	z-index: 0;
 	/*position: absolute;*/
 }
 .moviesByPropertyDiv {
+	position: relative;
+	z-index: -1;
+
 	width: auto;
 	overflow-x: scroll;
 	overflow-y: hidden;
 	white-space:nowrap;
-	z-index: 0;
+
 }
 .movieImg {
+	position: relative;
+	z-index: 90;
 	display: inline-block;
 	margin: .2em;
 	width: 100px;
-	z-index: 90;
+
 }
 .selected {
-	border: 3px solid white;
+	border: 1px solid white;
 	box-shadow: 1px 1px 2em #fff;
 	-webkit-box-shadow: 1px 1px 2em #fff;
 	-moz-box-shadow: 1px 1px 2em #fff;
@@ -128,6 +135,7 @@ body {
 	position: absolute;
 	overflow-y: scroll;
 	overflow: scroll;
+	z-index: -1;
 /*	height: 55%;*/
 	/*border: 1px solid red;*/
 }

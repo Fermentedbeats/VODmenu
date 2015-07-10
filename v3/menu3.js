@@ -267,6 +267,7 @@ function populateCategoryTitles(categoryList, num) {
     moviesByPropertyDiv.className = "moviesByPropertyDiv";
     return moviesByPropertyDiv;
 }
+
 // in title menu generation loops this clears the last title menu
 function clearTitleMenu(){
     $(".propertyTitle").remove();
@@ -426,6 +427,7 @@ switch(e.which) {
         else {
             selected.siblings(":first").addClass("selected");
             selected.siblings(":first").get(0).scrollIntoView(); 
+            titleParent.get(0).scrollIntoView();
             selected.removeClass("selected");   
             displayDetails();
         }
@@ -494,7 +496,6 @@ function loadVideo(htmlUrl, oggUrl, flashUrl, flashPlaceholder){
 // ********************** INTRO ANIMATION **********************
 
 function hideNonAnimateables() {
-
         //hide header details on intro animation
         $('.header').hide();
         $('.propertyTitle').css('color', 'black');
@@ -508,34 +509,19 @@ function loadAnimation() {
     displayByAtoZ();
     hideNonAnimateables();
 
-    // var imgs = $('.movieImg');
-    // console.log(imgs);
-    //     img = imgs[i];
-    //     var xrand = (Math.random()*600);
-    //     var yrand = (Math.random()*600);
-    //     var zrand = (Math.random()*600);
-    //     var xrot = (Math.random()*1080);
-    //     var yrot = (Math.random()*1080);
-    // TweenMax.to(img, 2, {left: "600px"});
-
-
-    //     // , y:  yrand,z: zrand, Xrotation: xrot, Yrotation: yrot})
-    // console.log(img)
+    var arbitraryCounter = 0;
     var imgs = $('.movieImg');
     for (var i = 0; i < imgs.length; i++) {
-      img = imgs[i]
-      
-
+        arbitraryCounter += i;
+      img = imgs[i];
     TweenMax.from(img, getRandomInt(3), {width:getRandomInt(400)+'px', ease:"Elastic.easeOut"});
-    TweenMax.from(img, getRandomInt(3), {z: getRandomInt(900), ease:"Power4.easeOut", delay:.5});
-    TweenMax.from(img, getRandomInt(3), {y: getRandomInt(500), ease:"Power4.easeOut", delay:.5});
-    TweenMax.from(img, getRandomInt(3), {x: getRandomInt(800),  ease:"Power4.easeOut", delay:.5});
-
-    
+    TweenMax.from(img, getRandomInt(3), {z: getRandomInt(900), ease:"SLowMo.easeOut", delay:0});
+    TweenMax.from(img, getRandomInt(3), {y: getRandomInt(500), ease:"SLowMo.easeOut", delay:0});
+    TweenMax.from(img, getRandomInt(3), {x: getRandomInt(800),  ease:"SLowMo.easeOut", delay:0});
      }
 
    // rotationX: 360, rotationY: 720, rotation: 100}
-
+  callback(arbitraryCounter);
 } // end loadAnimation function
 
 function getRandomInt(num) {
@@ -552,33 +538,35 @@ function generateMovieSelector() {
     $(selected).addClass("selected");
     displayDetails();
 }
-// instantiate first nav menu option as 'selected'
 function loadNavSelection() {
+    // reset hidden pieces & instantiate first nav menu option as 'selected'
     $('.navPlaceholder').addClass('nav');
     $('.detailsPlaceholder').addClass('details');
     $('.instructionsPlaceholder').addClass('instructions');
-
-
-    var selected = $(".navMenu").last();
     displayByAtoZ();
-    // reset div width & title visibility after animation
-    $('.selections').css('height', '55%');
-    $('.propertyTitle').css('color', 'white');
-
-
-    $('header').show();
+    var selected = $(".navMenu").last();
     $(selected).addClass("selectedNavMenu");
+    // reset  visibility after animation
+    $('.selections').css('height', '55%');
+    $('header').show();
+    // animate header into place
+    var headerAnimation = $('.header')
+    var movieImgAnimation = $('.selections')
+    TweenMax.from(headerAnimation, 1, {y:-600, ease:"Back.easeOut", delay:.5});
+    TweenMax.from(movieImgAnimation, 1, {y:-300, ease:"Back.easeOut", delay:0});
+}
 
-
+function titlePop() {
+    $('.propertyTitle').css('color', 'white');
 }
 // ********************** CONTROLLER **********************
 // call inital menu load
 $(document).ready(function() {
-loadAnimation();
+// loadAnimation().done(loadNavSelection);
 })
 
 //on Complete
-// loadNavSelection();
+loadNavSelection();
 
 }
 vodApp();
