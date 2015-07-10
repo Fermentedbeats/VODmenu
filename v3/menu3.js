@@ -509,10 +509,10 @@ function loadAnimation() {
     displayByAtoZ();
     hideNonAnimateables();
 
-    var arbitraryCounter = 0;
+    // var arbitraryCounter = 0;
     var imgs = $('.movieImg');
     for (var i = 0; i < imgs.length; i++) {
-        arbitraryCounter += i;
+        // arbitraryCounter += i;
       img = imgs[i];
     TweenMax.from(img, getRandomInt(3), {width:getRandomInt(400)+'px', ease:"Elastic.easeOut"});
     TweenMax.from(img, getRandomInt(3), {z: getRandomInt(900), ease:"SLowMo.easeOut", delay:0});
@@ -520,8 +520,9 @@ function loadAnimation() {
     TweenMax.from(img, getRandomInt(3), {x: getRandomInt(800),  ease:"SLowMo.easeOut", delay:0});
      }
 
+
    // rotationX: 360, rotationY: 720, rotation: 100}
-  callback(arbitraryCounter);
+  // callback(arbitraryCounter);
 } // end loadAnimation function
 
 function getRandomInt(num) {
@@ -539,11 +540,22 @@ function generateMovieSelector() {
     displayDetails();
 }
 function loadNavSelection() {
+
+    displayByAtoZ();
+
+        var imgs = $('.movieImg');
+    for (var i = 0; i < imgs.length; i++) {
+        // arbitraryCounter += i;
+      img = imgs[i];
+    TweenMax.from(img, getRandomInt(3), {width:getRandomInt(400)+'px', ease:"Elastic.easeOut"});
+    TweenMax.from(img, getRandomInt(3), {z: getRandomInt(900), ease:"SLowMo.easeOut", delay:0});
+    TweenMax.from(img, getRandomInt(3), {y: getRandomInt(500), ease:"SLowMo.easeOut", delay:0});
+    TweenMax.from(img, getRandomInt(3), {x: getRandomInt(800),  ease:"SLowMo.easeOut", delay:0});
+     }
     // reset hidden pieces & instantiate first nav menu option as 'selected'
     $('.navPlaceholder').addClass('nav');
     $('.detailsPlaceholder').addClass('details');
     $('.instructionsPlaceholder').addClass('instructions');
-    displayByAtoZ();
     var selected = $(".navMenu").last();
     $(selected).addClass("selectedNavMenu");
     // reset  visibility after animation
@@ -552,8 +564,9 @@ function loadNavSelection() {
     // animate header into place
     var headerAnimation = $('.header')
     var movieImgAnimation = $('.selections')
-    TweenMax.from(headerAnimation, 1, {y:-600, ease:"Back.easeOut", delay:.5});
-    TweenMax.from(movieImgAnimation, 1, {y:-300, ease:"Back.easeOut", delay:0});
+
+    TweenMax.from(headerAnimation, 1, {y:-600, ease:"Back.easeOut", delay:3});
+    TweenMax.from(movieImgAnimation, 1, {y:-300, ease:"Back.easeOut", delay:2});
 }
 
 function titlePop() {
@@ -562,7 +575,8 @@ function titlePop() {
 // ********************** CONTROLLER **********************
 // call inital menu load
 $(document).ready(function() {
-// loadAnimation().done(loadNavSelection);
+// loadAnimation();
+// setTimeout(loadNavSelection, 2000);
 })
 
 //on Complete
@@ -570,6 +584,4 @@ loadNavSelection();
 
 }
 vodApp();
-
-
 
