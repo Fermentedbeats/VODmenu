@@ -129,7 +129,7 @@ function displayByAtoZ() {
     }
     generateMovieSelector(); 
 }
-displayByAtoZ();
+// displayByAtoZ();
 
 function displayByRating() {
     // start fresh when user switches to this menu
@@ -320,22 +320,6 @@ function clearDetails() {
 
 // ********************** KEYBOARD EVENTS **********************
 
-// instantiate first video as 'selected'
-function generateMovieSelector() {
-    var selected = $(".movieImg")[0];
-    $(selected).addClass("selected");
-    displayDetails();
-}
-// instantiate first nav menu option as 'selected'
-function loadNavSelection() {
-    var selected = $(".navMenu").last();
-    $(selected).addClass("selectedNavMenu");
-    // reset div width & title visibility after animation
-    $('.selections').css('height', '55%');
-    $('.propertyTitle').css('color', 'white');
-
-
-}
 
 
 // keydown functions
@@ -521,6 +505,7 @@ function hideNonAnimateables() {
 
 
 function loadAnimation() {
+    displayByAtoZ();
     hideNonAnimateables();
 
     // var imgs = $('.movieImg');
@@ -541,7 +526,12 @@ function loadAnimation() {
       img = imgs[i]
       
 
-    TweenMax.from(img, getRandomInt(2), {width:60,x: getRandomInt(2000), y: getRandomInt(2000), z: getRandomInt(1000), delay:.5});
+    TweenMax.from(img, getRandomInt(3), {width:getRandomInt(400)+'px', ease:"Elastic.easeOut"});
+    TweenMax.from(img, getRandomInt(3), {z: getRandomInt(900), ease:"Power4.easeOut", delay:.5});
+    TweenMax.from(img, getRandomInt(3), {y: getRandomInt(500), ease:"Power4.easeOut", delay:.5});
+    TweenMax.from(img, getRandomInt(3), {x: getRandomInt(800),  ease:"Power4.easeOut", delay:.5});
+
+    
      }
 
    // rotationX: 360, rotationY: 720, rotation: 100}
@@ -550,6 +540,36 @@ function loadAnimation() {
 
 function getRandomInt(num) {
     return (Math.random()*num).toString();
+}
+
+
+
+// ********************** INIT **********************
+
+// instantiate first video as 'selected'
+function generateMovieSelector() {
+    var selected = $(".movieImg")[0];
+    $(selected).addClass("selected");
+    displayDetails();
+}
+// instantiate first nav menu option as 'selected'
+function loadNavSelection() {
+    $('.navPlaceholder').addClass('nav');
+    $('.detailsPlaceholder').addClass('details');
+    $('.instructionsPlaceholder').addClass('instructions');
+
+
+    var selected = $(".navMenu").last();
+    displayByAtoZ();
+    // reset div width & title visibility after animation
+    $('.selections').css('height', '55%');
+    $('.propertyTitle').css('color', 'white');
+
+
+    $('header').show();
+    $(selected).addClass("selectedNavMenu");
+
+
 }
 // ********************** CONTROLLER **********************
 // call inital menu load

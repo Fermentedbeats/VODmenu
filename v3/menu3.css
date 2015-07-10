@@ -68,6 +68,7 @@ body {
 	overflow: auto;
 	overflow: auto;
 	margin-top: .3em;
+	z-index: 0;
 	/*position: absolute;*/
 }
 .moviesByPropertyDiv {
@@ -81,6 +82,7 @@ body {
 	display: inline-block;
 	margin: .2em;
 	width: 100px;
+	z-index: 90;
 }
 .selected {
 	border: 3px solid white;
@@ -130,7 +132,6 @@ body {
 	/*border: 1px solid red;*/
 }
 .header {
-	/*position: fixed;*/
 	display: block;
 	height: 300px;
 	width: 100%;
@@ -157,7 +158,4 @@ video {
 	font-size: 2em;
 	color: #6BCAE2;
 	list-style-type: none;
-}
-.spacing {
-	height:200px;
 }
