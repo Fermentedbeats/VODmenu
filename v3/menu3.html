@@ -4,13 +4,13 @@
 	<meta charset="utf-8">
 	<!-- 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
 	<title>VOD</title>
+	<link rel="stylesheet" type="text/css" href="normalize.css"> 
 	<link rel="stylesheet" type="text/css" href="menu3.css"> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- uniq lib -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-	<!-- scroll lib -->
-	<!-- /<script src="https://cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script> -->
+
 
 </head>
 <body>
@@ -21,15 +21,14 @@
 		<div class="header">
 			<div class="logo"></div>
 
-			<div class="nav">
+			<div class="nav">Browse by:<br>
 				<ul>
 					<li id="History" class="navMenu">&nbsp;History&nbsp;</li>
 					<li id="Watchlist" class="navMenu">&nbsp;Watchlist&nbsp;</li>
 					<li id="Favorites" class="navMenu">&nbsp;Favorites&nbsp;</li>
 					<li id="Popularity" class="navMenu">&nbsp;Popularity&nbsp;</li>
-					<li id="AZ" class="navMenu">&nbsp;A-Z&nbsp;</li>
 					<li id="Genre" class="navMenu">&nbsp;Genre&nbsp;</li>
-					<li>Browse by: </li>
+					<li id="AZ" class="navMenu">&nbsp;A-Z&nbsp;</li>
 				</ul>
 			</div><!--nav-->
 				<div class="search">SEARCH</div>
@@ -41,7 +40,9 @@
 						<li><span>W</span>  add to Watchlist</li>
 						<li><span>&#8617; return</span> to watch selection</li>
 						<li><span>delete</span> to close movie</li>
+						
 					</ul>
+					<div id="message"><li><span></span></li></div>
 				</div>
 
 			<div class="details">
@@ -52,18 +53,20 @@
 		</div><!--header-->
 
 		<div class="selections"></div>
+		<div class="spacing"></div>
 	</div><!--container-->
 
 
 
 
-		<!--
-		<script src="js/three.min.js"></script>
-		<script src="js/tween.min.js"></script>
-		<script src="js/TrackballControls.js"></script>
-		<script src="js/CSS3DRenderer.js"></script>
-		<script src="js/mediaList.js"></script>
-	-->
-	<script src="menu3.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+		
+		<!--<script src="../js/three.min.js"></script>
+		<script src="../js/tween.min.js"></script>
+		<script src="../js/TrackballControls.js"></script>
+		<script src="../js/CSS3DRenderer.js"></script>
+		 <script src="../js/mediaList.js"></script> -->
+	
+		<script src="menu3.js"></script>
 </body>
 </html>

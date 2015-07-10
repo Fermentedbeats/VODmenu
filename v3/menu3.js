@@ -16,7 +16,7 @@ Media.prototype.watchList = false;
 Media.prototype.history = false;
 Media.prototype.trailerUrl = "../assets/videos/movieclip.mp4"
 Media.prototype.videoUrl = "../assets/videos/movieclip.mp4"
-Media.prototype.plot = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel imperdiet turpis, non commodo ligula. Ut ut risus at leo rhoncus tempor non non dui. Donec nec quam non ipsum laoreet suscipit. Fusce viverra enim massa, tincidunt fringilla lorem condimentum eget."
+Media.prototype.plot = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel imperdiet turpis, non commodo ligula. Ut ut risus at leo rhoncus tempor non non dui."
 
 // create movie objects && put movie objects into table
 var table = [
@@ -43,13 +43,6 @@ new Media('../assets/boxcovers/new_moon.jpg', "Twilight Saga: New Moon", "2009",
 new Media('../assets/boxcovers/wall_e.jpg', "Wall-E", "2008", "Family", 9, "G"),
 new Media('../assets/boxcovers/wreck_it_ralph.jpg', "Wreck-It Ralph", "2012", "Family", 7, "G"),
 ];
-
-
-
-// INTRO ANIMATION
-
-// riiiiiiiight
-
 
 
 
@@ -105,7 +98,7 @@ function displayByGenre() {
         // populate boxCovers beneath each genre title div
         for (var k = 0; k < table.length; k++) {
             if (table[k].genre === genresList[j] || 
-             ((table[k].year === "2013" || "2012") && genresList[j] === "Latest")) {
+             ((table[k].year === "2012") && genresList[j] === "Latest")) {
                 populateMovieImgs(k, movieImgDiv);
         }
 
@@ -113,7 +106,7 @@ function displayByGenre() {
 }
 generateMovieSelector(); 
 }
-displayByGenre();
+//displayByGenre();
 
 function displayByAtoZ() {
     // start fresh when user switches to this menu
@@ -136,7 +129,7 @@ function displayByAtoZ() {
     }
     generateMovieSelector(); 
 }
-// displayByAtoZ();
+displayByAtoZ();
 
 function displayByRating() {
     // start fresh when user switches to this menu
@@ -174,9 +167,9 @@ function displayHistory() {
                     populateMovieImgs(k, movieImgDiv);
                 }
             }
-    } 
-    isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("history");    
-}
+        } 
+        isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("history");    
+    }
 //displayHistory(); 
 
 
@@ -197,7 +190,7 @@ function displayFavorites() {
                 }
             }
         }  
-    isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("favorites");
+        isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("favorites");
     }
 
     function displayWatchList() {
@@ -218,40 +211,40 @@ function displayFavorites() {
                 }
             }
         } 
-    isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("watchList");
+        isThereAMatch ? generateMovieSelector() : displayEmptyTitleMenu("watchList");
     }
 
 
-function displayEmptyTitleMenu(category) {
-    clearDetails();
-    var displayText;
-    var historyText = "Watch a movie to automatically add it to your History.";
-    var favoritesText = "You have no favorites! Push the F key when you see a favorite to add it here.";
-    var watchListText = "Find something you want to watch later? Push the W key to add it to your Watchlist.";
+    function displayEmptyTitleMenu(category) {
+        clearDetails();
+        var displayText;
+        var historyText = "Watch a movie to automatically add it to your History.";
+        var favoritesText = "You have no favorites! Push the F key when you see a favorite to add it here.";
+        var watchListText = "Find something you want to watch later? Push the W key to add it to your Watchlist.";
 
-    switch(category) {
-        case "history":
+        switch(category) {
+            case "history":
             displayText = historyText;
-        break;
-        case "favorites":
+            break;
+            case "favorites":
             displayText = favoritesText;
-        break;
-        case "watchList":
-           displayText = watchListText;
-        break;
+            break;
+            case "watchList":
+            displayText = watchListText;
+            break;
+        }
+
+
+        var text = document.getElementsByClassName('detailsText')[0];
+        text.innerHTML = "<span id='detailsTitle'><strong>Coming Soon</strong></span><br><br>" + insertStars(10) + "<br><br>" + displayText;
+        var img = document.createElement('img');
+        img.src = '../assets/boxCovers/coming_soon.png'
+        document.getElementsByClassName('detailsImg')[0].appendChild(img);
+
+
+
+
     }
-
-
-    var text = document.getElementsByClassName('detailsText')[0];
-    text.innerHTML = "<span id='detailsTitle'><strong>Coming Soon</strong></span><br><br>" + insertStars(10) + "<br><br>" + displayText;
-    var img = document.createElement('img');
-    img.src = '../assets/boxCovers/coming_soon.png'
-    document.getElementsByClassName('detailsImg')[0].appendChild(img);
-
-
-
-
-}
 
 // ********************** TITLE MENU DISPLAY HELPERS **********************
 
@@ -337,6 +330,11 @@ function generateMovieSelector() {
 function loadNavSelection() {
     var selected = $(".navMenu").last();
     $(selected).addClass("selectedNavMenu");
+    // reset div width & title visibility after animation
+    $('.selections').css('height', '55%');
+    $('.propertyTitle').css('color', 'white');
+
+
 }
 
 
@@ -344,19 +342,19 @@ function loadNavSelection() {
 $(document).keydown(function(e) {
 
 // left & right vars
-    var selected = $(".selected");
-    var previous = selected.prev();
-    var next = selected.next();
+var selected = $(".selected");
+var previous = selected.prev();
+var next = selected.next();
 // up & down vars
-    var firstImg = $('.movieImg').first();
-    var lastImg = $('.movieImg').last();
-    var parent = selected.parent().parent();
-    var nextParent = parent.next();
-    var previousParent = parent.prev();
-    var down = nextParent.children(':first-child').children(':first-child');
-    var up = previousParent.children(':first-child').children(':first-child');
-    var firstImgOfLastDiv = parent.siblings().last().children(':first-child').children(':first-child');
-    var firstImgOfFirstDiv = parent.siblings().first().children(':first-child').children(':first-child');
+var firstImg = $('.movieImg').first();
+var lastImg = $('.movieImg').last();
+var parent = selected.parent().parent();
+var nextParent = parent.next();
+var previousParent = parent.prev();
+var down = nextParent.children(':first-child').children(':first-child');
+var up = previousParent.children(':first-child').children(':first-child');
+var firstImgOfLastDiv = parent.siblings().last().children(':first-child').children(':first-child');
+var firstImgOfFirstDiv = parent.siblings().first().children(':first-child').children(':first-child');
 // title menu vars
     // left & right
     var titleParent = selected.parent().parent();
@@ -368,16 +366,16 @@ $(document).keydown(function(e) {
     // console.log(firstFirstParent);
 
 // nav menu vars
-    var navMenus = $('.navMenu');
-    var selectedNavMenu = $('.selectedNavMenu');
-    var prevMenu = selectedNavMenu.prev();
+var navMenus = $('.navMenu');
+var selectedNavMenu = $('.selectedNavMenu');
+var prevMenu = selectedNavMenu.prev();
 // movie obj for video load, history, favorite & watchlist
-    var movieTitle = selected.attr('id');
-    var findMovieObj = table.map(function(x) {return x.title;}).indexOf(movieTitle);
-    var movieObj = table[findMovieObj];
+var movieTitle = selected.attr('id');
+var findMovieObj = table.map(function(x) {return x.title;}).indexOf(movieTitle);
+var movieObj = table[findMovieObj];
 
 // KEY DOWN ASSIGNMENT
-    switch(e.which) {
+switch(e.which) {
             case 38: // up
             if (up.length) {
                 up.addClass("selected");
@@ -463,11 +461,13 @@ $(document).keydown(function(e) {
         break;
 
         case 70: // "F" // favorites
-            movieObj.favorite = true;
+        movieObj.favorite = true;
+        keyDownMessage("Favorites", movieObj);
         break;
 
         case 87: // "W" //  watchList
-            movieObj.watchList = true;
+        movieObj.watchList = true;
+        keyDownMessage("Watchlist", movieObj);
         break;
 
         case 13: // enter
@@ -486,21 +486,80 @@ $(document).keydown(function(e) {
     e.preventDefault(); // prevent the default action (scroll / move caret)
 });
 
+function keyDownMessage(key, movieObj){
+    $('#message').html(movieObj.title + ' added to ' + key);
+    $('#message').show();
+    $('#message').fadeOut(1000);
+
+}
+
 // ********************** VIDEO LOAD **********************
 
 // tree for html5 with ogg & flash back-ups
 // (does not work  - only mp4 file in repository)
 function loadVideo(htmlUrl, oggUrl, flashUrl, flashPlaceholder){
-    
-    
+
+
     w = window.open('video.html', '', 'fullscreen=yes, scrollbars=auto');
     d = w.document.open('text/html', 'replace');
     d.writeln('<video id="video" width="100%" autoplay controls><source src=' + htmlUrl + ' type=video/mp4 codecs=avc1.42E01E, mp4a.40.2><source src=' + oggUrl + 'type=video/ogg; codecs=theora, vorbis><object width=100% type=application/x-shockwave-flash data=' + flashUrl + '?image=' + flashPlaceholder + '&file=' + htmlUrl + '><param name=movie value=path/to/swf/player.swf?image=placeholder.jpg&file=path/to/myvideo.mp4/></object>Your browser does not support the video tag.</video><script>window.onkeydown = function(event) {if ( event.keyCode === 27 || event.keyCode === 8 || event.keyCode === 46 ){window.close();}};</script>');
 }
 
+
+
+// ********************** INTRO ANIMATION **********************
+
+function hideNonAnimateables() {
+
+        //hide header details on intro animation
+        $('.header').hide();
+        $('.propertyTitle').css('color', 'black');
+    // extend selection div to view all movies / remove negative space
+    $('.selections').css('height', '100%');
+}
+
+
+
+function loadAnimation() {
+    hideNonAnimateables();
+
+    // var imgs = $('.movieImg');
+    // console.log(imgs);
+    //     img = imgs[i];
+    //     var xrand = (Math.random()*600);
+    //     var yrand = (Math.random()*600);
+    //     var zrand = (Math.random()*600);
+    //     var xrot = (Math.random()*1080);
+    //     var yrot = (Math.random()*1080);
+    // TweenMax.to(img, 2, {left: "600px"});
+
+
+    //     // , y:  yrand,z: zrand, Xrotation: xrot, Yrotation: yrot})
+    // console.log(img)
+    var imgs = $('.movieImg');
+    for (var i = 0; i < imgs.length; i++) {
+      img = imgs[i]
+      
+
+    TweenMax.from(img, getRandomInt(2), {width:60,x: getRandomInt(2000), y: getRandomInt(2000), z: getRandomInt(1000), delay:.5});
+     }
+
+   // rotationX: 360, rotationY: 720, rotation: 100}
+
+} // end loadAnimation function
+
+function getRandomInt(num) {
+    return (Math.random()*num).toString();
+}
 // ********************** CONTROLLER **********************
 // call inital menu load
-loadNavSelection();
+$(document).ready(function() {
+loadAnimation();
+})
+
+//on Complete
+// loadNavSelection();
+
 }
 vodApp();
 
