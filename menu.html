@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<title>VOD</title>
-		<link rel="stylesheet" type="text/css" href="menu.css"> 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	</head>
-	<body>
-
-		<div id="container">
-		    <div class="logo"></div>
-			<div class="nav">
-			  <ul>
-				<li class="profile">&nbsp;Profile</li>
-				<li class="history">&nbsp;History&nbsp;</li>
-				<li class="watchList">&nbsp;Watchlist&nbsp;</li>
-				<li class="favorites">&nbsp;Favorites&nbsp;</li>
-				<li class="search">Search&nbsp;</li>
-			  </ul>
+<head>
+	<meta charset="utf-8">
+	<title>VOD</title>
+	<link rel="stylesheet" type="text/css" href="normalize.css"> 
+	<link rel="stylesheet" type="text/css" href="menu.css"> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- uniq lib -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div class="header">
+			<div class="logo"></div>
+			<div class="navPlaceholder">Browse by:<br>
+				<ul>
+					<li id="History" class="navMenu">&nbsp;History&nbsp;</li>
+					<li id="Watchlist" class="navMenu">&nbsp;Watchlist&nbsp;</li>
+					<li id="Favorites" class="navMenu">&nbsp;Favorites&nbsp;</li>
+					<li id="Popularity" class="navMenu">&nbsp;Popularity&nbsp;</li>
+					<li id="Genre" class="navMenu">&nbsp;Genre&nbsp;</li>
+					<li id="AZ" class="navMenu">&nbsp;A-Z&nbsp;</li>
+				</ul>
 			</div><!--nav-->
-			<div class="selections"></div>
-		</div><!--container-->
-
-		<!-- <div id="menu"> -->
-			<!-- <button id="table">TABLE</button> -->
-		<!-- </div> -->
-
-		<script src="js/three.min.js"></script>
-		<script src="js/tween.min.js"></script>
-		<!--<script src="js/TrackballControls.js"></script>-->
-		<script src="js/CSS3DRenderer.js"></script>
-		<script src="js/mediaList.js"></script>
-		<script src="js/menu.js"></script>
-	</body>
+			<div class="search">SEARCH</div>
+			<div class="instructionsPlaceholder">
+				<ul>
+					<li><span>M</span> browse by menu</li>
+					<li><span>&#8592; &#8593; &#8594; &#8595;</span> scroll through movies</li>
+					<li><span>F</span> add to Favorites</li>
+					<li><span>W</span> add to Watchlist</li>
+					<li><span>&#8617; return</span> watch selected movie</li>
+					<li><span>delete</span> close movie</li>
+				</ul>
+				<div id="message"><li><span></span></li></div>
+			</div> <!--instructions -->
+			<div class="detailsPlaceholder">
+				<div class="detailsText"></div>
+				<div class="detailsImg"></div>
+			</div>
+		</div><!--header-->
+		<div class="selections"></div>
+	</div><!--container-->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+	<script src="js/model.js"></script>
+	<script src="js/menu.js"></script>
+</body>
 </html>
