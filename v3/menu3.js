@@ -475,7 +475,7 @@ switch(e.which) {
 function keyDownMessage(key, movieObj){
     $('#message').html(movieObj.title + ' added to ' + key);
     $('#message').show();
-    $('#message').fadeOut(1000);
+    $('#message').fadeOut(2000);
 
 }
 
@@ -548,9 +548,9 @@ function loadNavSelection() {
         // arbitraryCounter += i;
       img = imgs[i];
     TweenMax.from(img, getRandomInt(3), {width:getRandomInt(400)+'px', ease:"Elastic.easeOut"});
-    TweenMax.from(img, getRandomInt(3), {z: getRandomInt(900), ease:"SLowMo.easeOut", delay:0});
-    TweenMax.from(img, getRandomInt(3), {y: getRandomInt(500), ease:"SLowMo.easeOut", delay:0});
-    TweenMax.from(img, getRandomInt(3), {x: getRandomInt(800),  ease:"SLowMo.easeOut", delay:0});
+    TweenMax.from(img, getRandomInt(3), {z: getRandomInt(900), ease:"Rough.easeOut", delay:0});
+    TweenMax.from(img, getRandomInt(3), {y: getRandomInt(500), ease:"Rough.easeOut", delay:0});
+    TweenMax.from(img, getRandomInt(3), {x: getRandomInt(800),  ease:"Rough.easeOut", delay:0});
      }
     // reset hidden pieces & instantiate first nav menu option as 'selected'
     $('.navPlaceholder').addClass('nav');
@@ -559,18 +559,22 @@ function loadNavSelection() {
     var selected = $(".navMenu").last();
     $(selected).addClass("selectedNavMenu");
     // reset  visibility after animation
-    $('.selections').css('height', '55%');
     $('header').show();
     // animate header into place
-    var headerAnimation = $('.header')
+    var menuAnimation = $('.nav')
+    var instructionsAnimation = $('.instructions')
+    var deetsAnimation = $('.details')
     var movieImgAnimation = $('.selections')
 
-    TweenMax.from(headerAnimation, 1, {y:-600, ease:"Back.easeOut", delay:3});
-    TweenMax.from(movieImgAnimation, 1, {y:-300, ease:"Back.easeOut", delay:2});
+    TweenMax.from(menuAnimation, 1.5, {x:-1000, ease:"Back.easeOut", delay:3.5});
+    TweenMax.from(instructionsAnimation, 1, {y:-1000, ease:"Back.easeOut", delay:3});
+    TweenMax.from(deetsAnimation, 2, {x:1000, ease:"Elastic.easeOut", delay:4});
+    TweenMax.from(movieImgAnimation, 1, {y:-300, ease:"Back.easeOut", delay:2, onComplete:selectionExpand});
 }
 
-function titlePop() {
-    $('.propertyTitle').css('color', 'white');
+function selectionExpand() {
+    $('.selections').css('height', '55%');
+    // $('.propertyTitle').css('color', 'white');
 }
 // ********************** CONTROLLER **********************
 // call inital menu load
