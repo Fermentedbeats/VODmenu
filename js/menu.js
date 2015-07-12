@@ -406,7 +406,7 @@ switch(e.which) {
 function keyDownMessage(key, movieObj){
     $('#message').html(movieObj.title + ' added to ' + key);
     $('#message').show();
-    $('#message').fadeOut(2000);
+    $('#message').fadeOut(1000);
 
 }
 
